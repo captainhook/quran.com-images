@@ -70,7 +70,8 @@ sub create {
 		white => $page->{image}->colorAllocateAlpha(255,255,255,127),
 		black => $page->{image}->colorAllocate(0,0,0),
 		#red   => $page->{image}->colorAllocate(127,11,19)
-		red   => $page->{image}->colorAllocate(19,50,112)
+		red   => $page->{image}->colorAllocate(19,50,112),
+		green   => $page->{image}->colorAllocate(0,200,0)
 	};
 
 	$page->{image}->alphaBlending(1);
@@ -96,6 +97,8 @@ sub create {
 
 		for (my $j = 0; $j < @{ $line->{glyphs} }; $j++) {
 			my $glyph = $line->{glyphs}->[$j];
+
+         my $type_id = $glyph->{type_id};
 			$glyph->{line} = $line;
 			$glyph->{box} = $self->_get_box($glyph);
 
@@ -111,6 +114,7 @@ sub create {
 			if ($glyph->{position} == 1 and $line->{type} eq 'sura') {
 				my $glyph = $self->db->get_ornament_glyph('header-box');
 				$glyph->{line} = $line;
+            $glyph->{type_id} = $type_id;
 
 				$glyph->{ptsize} = $page->{ptsize} * 1.8;
 
@@ -136,6 +140,7 @@ sub create {
 				$glyph->{box}->{coord_y} += $line->{box}->{height} / 7;
 			}
 
+         $glyph->{type_id} = $type_id;
 			$glyph->{box} = $self->_set_box($glyph);
 
 			$line->{box} = $self->_get_max_box($glyph->{box}, $line->{box});
@@ -176,6 +181,10 @@ sub _set_box {
 	elsif ($line->{type} eq 'sura'){
 		#$color = $page->{color}->{red};
 	}
+
+   if ($glyph->{type_id} == 2) {
+      $color = $page->{color}->{green};
+   }
 
 	# begin hack
 	my ($coord_x, $coord_y) = $glyph->{use_coords} ? ($glyph->{box}->{coord_x}, $glyph->{box}->{coord_y}) : ($page->{coord_x}, $page->{coord_y});
