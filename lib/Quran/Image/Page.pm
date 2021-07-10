@@ -50,7 +50,7 @@ sub create {
 
 	print "Page: ". $page->{number} ."\n";
 
-	my $fontfactor = 21;    # 21 is the default
+	my $fontfactor = 20.1;    # 21 is the default
 	my $fontdelta = 1; #(21 - abs(21 - $fontfactor)) / 21;
 
 	# page 270 font is slightly larger so it goes off the page
@@ -59,9 +59,9 @@ sub create {
 	}
 
 	$page->{width}   = $self->{_width};
-	$page->{height}  = $self->{_width} * Quran::Image::PHI * $fontdelta;
+	$page->{height}  = 6090; #$self->{_width} * Quran::Image::PHI * $fontdelta;
 	$page->{ptsize}  = int($self->{_width} / $fontfactor);
-	$page->{margin_top} = $page->{ptsize} / 2;
+	$page->{margin_top} = 113; # + $page->{ptsize} / 2;
 	$page->{coord_y} = $page->{margin_top};
 	$page->{font}    = Quran::Image::FONT_DEFAULT; # TODO: determine font size algorithmically and trim page height to fit or force fit
 	$page->{image} = GD::Image->new($page->{width}, $page->{height});
@@ -89,6 +89,7 @@ sub create {
 		$line->{box} = $self->_get_box($line);
 
 
+		$page->{coord_y} += 130;
 		$page->{coord_y} -= $line->{box}->{min_y}
 		if $page->{coord_y} <= $page->{margin_top} and $line->{box}->{min_y} < 0;
 
