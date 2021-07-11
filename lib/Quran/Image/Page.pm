@@ -56,7 +56,9 @@ sub create {
 	# page 270 font is slightly larger so it goes off the page
 	if ($page->{number} == 270){
 		$fontfactor = 21.0;
-	}
+	} elsif ($page->{number} < 3) {
+		$fontfactor = 17.0;
+   }
 
 	$page->{width}   = $self->{_width};
 	$page->{height}  = 6090; #$self->{_width} * Quran::Image::PHI * $fontdelta;
@@ -91,6 +93,8 @@ sub create {
 
 	   if ($page->{number} == 270){
 		   $page->{coord_y} += 120;
+      } elsif ($page->{number} < 3) {
+		   $page->{coord_y} += 136;
       } else {
 		   $page->{coord_y} += 130;
       }
