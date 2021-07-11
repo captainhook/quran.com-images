@@ -55,7 +55,7 @@ sub create {
 
 	# page 270 font is slightly larger so it goes off the page
 	if ($page->{number} == 270){
-		$fontfactor = 22.5;
+		$fontfactor = 21.0;
 	}
 
 	$page->{width}   = $self->{_width};
@@ -89,7 +89,11 @@ sub create {
 		$line->{box} = $self->_get_box($line);
 
 
-		$page->{coord_y} += 130;
+	   if ($page->{number} == 270){
+		   $page->{coord_y} += 120;
+      } else {
+		   $page->{coord_y} += 130;
+      }
 		$page->{coord_y} -= $line->{box}->{min_y}
 		if $page->{coord_y} <= $page->{margin_top} and $line->{box}->{min_y} < 0;
 
