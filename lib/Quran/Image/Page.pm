@@ -53,14 +53,30 @@ sub create {
 	my $fontfactor = 20.1;    # 21 is the default
 	my $fontdelta = 1; #(21 - abs(21 - $fontfactor)) / 21;
 
-   my @remainingPages = (189,210,216,291,323,336,345,347,349,423,446,455,457,521,526,567,577,585,586,597);
+   my @remainingPages = (291,323,336,345,347,349,423,446,455,457,521,526,567,577,585,586,597);
    my %remainingHash = map {$_ => 1} @remainingPages;
+
+   my @pagesWith30 = (17,140,164,209,210,213,216);
+   my %pagesWith30Hash = map {$_ => 1} @pagesWith30;
+
+   my @pagesWith40 = (6,107,135,150,153,165,178,193,194,211,214,230,259,264,265,266,272,274,281);
+   my %pagesWith40Hash = map {$_ => 1} @pagesWith40;
 
 	# page 270 font is slightly larger so it goes off the page
 	if ($page->{number} == 270){
 		$fontfactor = 21.0;
 	} elsif ($page->{number} < 3) {
 		$fontfactor = 17.0;
+   } elsif ($page->{number} == 189) {
+      $fontfactor = 21.0;
+   } elsif ($page->{number} == 198) {
+      $fontfactor = 20.4;
+   } elsif ($page->{number} == 224) {
+      $fontfactor = 20.6;
+   } elsif (exists $pagesWith30Hash{$page->{number}}) {
+      $fontfactor = 20.4;
+   } elsif (exists $pagesWith40Hash{$page->{number}}) {
+      $fontfactor = 20.3;
    } elsif (exists $remainingHash{$page->{number}}) {
       $fontfactor = 20.4;
    }
@@ -100,6 +116,16 @@ sub create {
 		   $page->{coord_y} += 120;
       } elsif ($page->{number} < 3) {
 		   $page->{coord_y} += 136;
+      } elsif ($page->{number} == 189) {
+         $page->{coord_y} += 140;
+      } elsif ($page->{number} == 198) {
+         $page->{coord_y} += 134.5;
+      } elsif ($page->{number} == 224) {
+         $page->{coord_y} += 136.3;
+      } elsif (exists ($pagesWith30Hash{$page->{number}})) {
+         $page->{coord_y} += 134.5;
+      } elsif (exists ($pagesWith40Hash{$page->{number}})) {
+         $page->{coord_y} += 133;
       } elsif (exists $remainingHash{$page->{number}}) {
          $page->{coord_y} += 134;
       } else {
