@@ -125,7 +125,7 @@ sub create {
       } elsif (exists ($pagesWith30Hash{$page->{number}})) {
          $page->{coord_y} += 134.5;
       } elsif (exists ($pagesWith40Hash{$page->{number}})) {
-         $page->{coord_y} += 133;
+         $page->{coord_y} += 132;
       } elsif (exists $remainingHash{$page->{number}}) {
          $page->{coord_y} += 134;
       } else {
