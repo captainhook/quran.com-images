@@ -321,13 +321,11 @@ sub _set_box {
 	}
 
 	# $page->{image}->setStyle($page->{color}->{black}, gdTransparent, $page->{color}->{black}, gdTransparent);
-	$page->{image}->setStyle($page->{color}->{black_traceable}, gdTransparent, $page->{color}->{black_traceable}, gdTransparent);
-$page->{image}->stringFT(gdStyled, $font, $ptsize, 0, $coord_x, $coord_y, $glyph->{text}, {
-    resolution => '96,94',
-    kerning => 0
-});
-
-
+	$page->{image}->setStyle($page->{color}->{black_traceable}, GD::gdTransparent, $page->{color}->{black_traceable}, GD::gdTransparent);
+	$page->{image}->stringFT(GD::gdStyled, $font, $ptsize, 0, $coord_x, $coord_y, $glyph->{text}, {
+		resolution => '96,94',
+		kerning => 0
+	});
 
 	return $box;
 }
