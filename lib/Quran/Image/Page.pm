@@ -138,6 +138,7 @@ sub create {
 		#debug => $page->{image}->colorAllocate(225,225,225),
 		white => $page->{image}->colorAllocateAlpha(255,255,255,127),
 		black => $page->{image}->colorAllocate(0,0,0),
+		black_traceable => $page->{image}->colorAllocateAlpha(0, 0, 0, 100),
 		#red   => $page->{image}->colorAllocate(127,11,19)
 		red   => $page->{image}->colorAllocate(19,50,112),
 		green   => $page->{image}->colorAllocate(0,200,0)
@@ -319,10 +320,14 @@ sub _set_box {
 		$self->db->set_page_line_bbox($glyph->{page_line_id}, $page->{width}, $min_x, $max_x, $min_y, $max_y);
 	}
 
-	$page->{image}->stringFT($color, $font, $ptsize, 0, $coord_x, $coord_y, $glyph->{text}, {
-		resolution => '96,94',
-		kerning => 0
-	});
+	# $page->{image}->setStyle($page->{color}->{black}, gdTransparent, $page->{color}->{black}, gdTransparent);
+	$page->{image}->setStyle($page->{color}->{black_traceable}, gdTransparent, $page->{color}->{black_traceable}, gdTransparent);
+$page->{image}->stringFT(gdStyled, $font, $ptsize, 0, $coord_x, $coord_y, $glyph->{text}, {
+    resolution => '96,94',
+    kerning => 0
+});
+
+
 
 	return $box;
 }
