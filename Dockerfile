@@ -2,7 +2,7 @@ FROM debian:bookworm-slim
 
 LABEL maintainer="Hossam Hammady <github@hammady.net>"
 
-# Install dependencies
+# Install dependencies including ca-certificates
 RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends \
       libgd-gd2-perl libgd-text-perl \
@@ -10,12 +10,14 @@ RUN apt-get update -qq && \
       libconfig-yaml-perl \
       make gcc g++ \
       unzip \
-      curl && \
+      curl \
+      ca-certificates && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Zopfli
-RUN curl -L -o /tmp/zopfli.zip https://github.com/google/zopfli/archive/master.zip && \
+RUN update-ca-certificates && \
+    curl -L -o /tmp/zopfli.zip https://github.com/google/zopfli/archive/master.zip && \
     unzip /tmp/zopfli.zip -d /tmp && \
     make -C /tmp/zopfli-master zopflipng && \
     cp /tmp/zopfli-master/zopflipng /usr/local/bin/ && \
