@@ -8,7 +8,7 @@ use warnings;
 
 use FindBin;
 use AutoLoader qw/AUTOLOAD/;
-use GD qw(:constants);
+use GD qw(gdTransparent gdStyled);
 use Carp;
 
 our $VERSION = '0.01';
