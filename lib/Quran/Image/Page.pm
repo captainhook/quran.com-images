@@ -130,7 +130,7 @@ sub create {
 	$page->{width}   = $self->{_width};
 	$page->{height}  = 6090; #$self->{_width} * Quran::Image::PHI * $fontdelta;
 	$page->{ptsize}  = int($self->{_width} / $fontfactor);
-	$page->{margin_top} = 113; # + $page->{ptsize} / 2;
+	$page->{margin_top} = 113 + 100; # + $page->{ptsize} / 2;
 	$page->{coord_y} = $page->{margin_top};
 	$page->{font}    = Quran::Image::FONT_DEFAULT; # TODO: determine font size algorithmically and trim page height to fit or force fit
 	$page->{image} = GD::Image->new($page->{width}, $page->{height});
@@ -160,37 +160,37 @@ sub create {
 
 
 	    if ($page->{number} < 3) {
-			$page->{coord_y} += 136;
+			$page->{coord_y} += 136 / 3;
 		} elsif ($page->{number} == 270) {
-			$page->{coord_y} += 116.5;
+			$page->{coord_y} += 116.5 / 3;
 		} elsif (exists ($pagesWith10Hash{$page->{number}})) {
-        	$page->{coord_y} += 143.75;
+        	$page->{coord_y} += 143.75 / 3;
 		} elsif (exists ($pagesWith20Hash{$page->{number}})) {
-         	$page->{coord_y} += 142;
+         	$page->{coord_y} += 142 / 3;
 		} elsif (exists $pagesWith25Hash{$page->{number}}) {
-			$page->{coord_y} += 140.25;
+			$page->{coord_y} += 140.25 / 3;
 		} elsif (exists ($pagesWith30Hash{$page->{number}})) {
-        	$page->{coord_y} += 138.25;
+        	$page->{coord_y} += 138.25 / 3;
 		} elsif (exists ($pagesWith40Hash{$page->{number}})) {
-			$page->{coord_y} += 136.25;
+			$page->{coord_y} += 136.25 / 3;
         } elsif (exists ($pagesWith50Hash{$page->{number}})) {
-        	$page->{coord_y} += 134.5;
+        	$page->{coord_y} += 134.5 / 3;
 		} elsif (exists ($pagesWith60Hash{$page->{number}})) {
-        	$page->{coord_y} += 131.75;
+        	$page->{coord_y} += 131.75 / 3;
 		} elsif (exists $pagesWith90Hash{$page->{number}}) {
-			$page->{coord_y} += 128;
+			$page->{coord_y} += 128 / 3;
 		} elsif (exists $pagesWith100Hash{$page->{number}}) {
-			$page->{coord_y} += 126.25;
+			$page->{coord_y} += 126.25 / 3;
 		} elsif (exists $pagesWith110Hash{$page->{number}}) {
-			$page->{coord_y} += 124.5;
+			$page->{coord_y} += 124.5 / 3;
 		} elsif (exists $pagesWith120Hash{$page->{number}}) {
-			$page->{coord_y} += 122.5;
+			$page->{coord_y} += 122.5 / 3;
 		} elsif (exists $pagesWith130Hash{$page->{number}}) {
-			$page->{coord_y} += 120.75;
+			$page->{coord_y} += 120.75 / 3;
 		} elsif (exists $pagesWith140Hash{$page->{number}}) {
-			$page->{coord_y} += 116;
+			$page->{coord_y} += 116 / 3;
         } else {
-		    $page->{coord_y} += 130;
+		    $page->{coord_y} += 130 / 3;
         }
 
 		$page->{coord_y} -= $line->{box}->{min_y}
